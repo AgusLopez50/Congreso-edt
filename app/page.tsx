@@ -13,9 +13,14 @@ const days = [
 ];
 
 function useCountdown() {
-  const [now, setNow] = useState(Date.now());
-  useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer); }, []);
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
   return useMemo(() => {
+    if (now === null) return [[0, "días"], [0, "horas"], [0, "min"], [0, "seg"]] as const;
     const remaining = Math.max(0, congressStart - now);
     return [
       [Math.floor(remaining / 86_400_000), "días"],
