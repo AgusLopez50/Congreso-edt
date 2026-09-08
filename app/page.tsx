@@ -47,6 +47,10 @@ export default function Home() {
   }, []);
   return (
     <main>
+      <a className="promo-bar" href={checkoutUrl}>
+        <span><b>Congreso EDT 2026</b> · Inscripciones abiertas</span>
+        <span className="promo-action">Reservá tu lugar <i aria-hidden="true">→</i></span>
+      </a>
       <header className="header">
         <a className="brand" href="#inicio" aria-label="Congreso EDT, ir al inicio">
           <Image src="/edt-logo.png" alt="Escuela EDT" width={48} height={48} priority />
