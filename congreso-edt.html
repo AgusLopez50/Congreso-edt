@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Congreso EDT | Vista previa — Día 1 finalizado</title>
+<title>Congreso EDT | Escuela de Dirección Técnica</title>
 <meta name="description" content="Tres días de charlas en vivo con referentes de la dirección técnica, la preparación física, el scouting y la gestión de clubes. Inscribite al Congreso EDT.">
 
 <!-- Open Graph -->
@@ -437,14 +437,6 @@
     .footer-grid{grid-template-columns:1fr;}
   }
 
-  .preview-banner{
-    background:#0b1220;color:#fff;text-align:center;
-    font-size:13px;font-weight:600;padding:10px 16px;
-    letter-spacing:.02em;
-    margin-top:4px;
-  }
-  .preview-banner strong{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-
   /* ---------- SCROLL REVEAL ---------- */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
@@ -733,10 +725,6 @@
 </head>
 <body>
 
-<div class="preview-banner">
-  🔎 VISTA PREVIA — Congreso ya empezado, <strong>Día 1 finalizado</strong> (Días 2 y 3 bloqueados). Nav realmente centrado (columnas laterales simétricas 1fr/1fr). Este archivo es solo para revisión, no reemplaza al archivo final.
-</div>
-
 <!-- ============ 1) BARRA DE PROGRESO CON PELOTA ============ -->
 <div class="scroll-progress">
   <div class="scroll-progress-fill" id="scrollFill"></div>
@@ -986,28 +974,26 @@
    que la sección funcione con las fechas reales del congreso.
    ========================================================== */
 const CONGRESO = {
-  // VISTA PREVIA: fecha de inicio forzada al pasado para simular
-  // "el congreso ya arrancó". En el archivo real esto queda a futuro.
-  inicio: "2026-11-10T18:00:00",
-  __previaCongresoYaArrancado: true,
+  // fecha/hora de arranque del día 1 (para el countdown del hero)
+  inicio: "2026-10-16T18:30:00",
 
   dias: [
     {
       numero: 1,
       titulo: "Dirección técnica y toma de decisiones",
       // el día se considera "terminado" (desbloqueado) después de esta fecha
-      finDia: "2026-11-10T22:00:00",
+      finDia: "2026-10-16T22:00:00",
       expositores: [
-        { nombre: "Diego Cagna", tema: "Armado de cuerpo técnico", resumen: "Planteó qué roles son indispensables en un cuerpo técnico moderno y cómo se reparten responsabilidades entre el DT, el ayudante de campo y el preparador físico." },
-        { nombre: "Claudia Bravo", tema: "Gestión de plantel profesional", resumen: "Compartió casos reales de manejo de grupo, comunicación con jugadores suplentes y decisiones bajo presión en semana de partido." },
+        { nombre: "Nombre Expositor 1", tema: "Armado de cuerpo técnico", resumen: "Texto placeholder: síntesis de 2-3 líneas de lo que planteó este expositor en su charla." },
+        { nombre: "Nombre Expositor 2", tema: "Gestión de plantel", resumen: "Texto placeholder: síntesis de 2-3 líneas de la segunda charla del día." },
       ],
-      intro: "Primera jornada centrada en cómo se arma y gestiona un cuerpo técnico integral.",
-      videoSrc: "" // URL del mini video (máx. 1 min) del día 1 — quedó vacío a propósito, ver nota debajo del reproductor
+      intro: "Texto placeholder: una línea breve de apertura del Día 1 (contexto, no resumen).",
+      videoSrc: "" // URL del mini video (máx. 1 min) del día 1
     },
     {
       numero: 2,
       titulo: "Rendimiento físico y prevención",
-      finDia: "2026-11-11T22:00:00",
+      finDia: "2026-10-17T12:30:00",
       expositores: [
         { nombre: "Nombre Expositor 3", tema: "Carga de trabajo semanal", resumen: "Texto placeholder: síntesis de 2-3 líneas de esta charla." },
         { nombre: "Nombre Expositor 4", tema: "Prevención de lesiones", resumen: "Texto placeholder: síntesis de 2-3 líneas de esta charla." },
@@ -1018,7 +1004,7 @@ const CONGRESO = {
     {
       numero: 3,
       titulo: "Scouting, datos y gestión de clubes",
-      finDia: "2026-11-12T22:00:00",
+      finDia: "2026-10-18T12:30:00",
       expositores: [
         { nombre: "Nombre Expositor 5", tema: "Scouting basado en datos", resumen: "Texto placeholder: síntesis de 2-3 líneas de esta charla." },
         { nombre: "Nombre Expositor 6", tema: "Gestión institucional", resumen: "Texto placeholder: síntesis de 2-3 líneas de esta charla." },
@@ -1049,7 +1035,7 @@ actualizarCountdown();
 setInterval(actualizarCountdown, 1000);
 
 // ---------- render de las 3 tarjetas de día ----------
-let demoOverride = 1; // VISTA PREVIA: forzado a "Día 1 finalizado" (en el archivo real esto es null)
+let demoOverride = null; // null = usar fecha real | 'pre' | 1 | 2 | 3
 
 function diaEstaDesbloqueado(dia){
   if (demoOverride === 'pre') return false;
@@ -1123,9 +1109,7 @@ function renderDias(){
 renderDias();
 
 // ---------- switch de demo (?demo=1 en la URL) ----------
-// VISTA PREVIA: switch visible siempre (sin necesidad de ?demo=1) para que
-// puedas togglear entre estados vos mismo mientras revisás este archivo.
-{
+if (new URLSearchParams(location.search).get("demo") === "1"){
   const sw = document.getElementById("demoSwitch");
   sw.classList.add("visible");
   sw.querySelectorAll("button").forEach(btn => {
@@ -1137,7 +1121,7 @@ renderDias();
       renderDias();
     });
   });
-  sw.querySelector('[data-state="1"]').classList.add("active");
+  sw.querySelector('[data-state="pre"]').classList.add("active");
 }
 
 function enviarInscripcion(){
@@ -1453,6 +1437,9 @@ if (window.matchMedia("(hover: hover) and (pointer: fine)").matches){
   });
 }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
