@@ -7,9 +7,9 @@ const checkoutUrl = "https://directortecnico.com/checkout?productId=congreso-edt
 const congressStart = new Date("2026-11-10T18:00:00-03:00").getTime();
 
 const days = [
-  { number: "01", title: "Dirección técnica y toma de decisiones", copy: "Cómo se arma un cuerpo técnico, cómo se gestiona un plantel y qué decisiones se toman bajo presión en la semana de partido." },
-  { number: "02", title: "Rendimiento físico y prevención", copy: "Preparación física aplicada, carga de trabajo y prevención de lesiones en el fútbol de alto rendimiento." },
-  { number: "03", title: "Scouting, datos y gestión de clubes", copy: "Cómo se profesionaliza la búsqueda de talento y la gestión institucional con análisis de datos." },
+  { number: "01", title: "Dirección técnica y toma de decisiones", copy: "Cómo se arma un cuerpo técnico, cómo se gestiona un plantel y qué decisiones se toman bajo presión en la semana de partido.", summary: "Primera jornada centrada en cómo se arma y gestiona un cuerpo técnico integral." },
+  { number: "02", title: "Rendimiento físico y prevención", copy: "Preparación física aplicada, carga de trabajo y prevención de lesiones en el fútbol de alto rendimiento.", summary: "Claves para planificar la carga, prevenir lesiones y sostener el rendimiento." },
+  { number: "03", title: "Scouting, datos y gestión de clubes", copy: "Cómo se profesionaliza la búsqueda de talento y la gestión institucional con análisis de datos.", summary: "Una mirada aplicada sobre scouting, datos y gestión en el fútbol profesional." },
 ];
 
 function useCountdown() {
@@ -97,9 +97,9 @@ export default function Home() {
           <div className="section-head reveal"><p className="eyebrow">Programa</p><h2>Una experiencia hecha para mirar, conversar y aplicar.</h2><p>El acceso al Congreso reúne las tres jornadas y los contenidos que se liberan después de cada encuentro.</p></div>
           <div className="program-grid">
             {days.map((day, index) => <article className="program-card reveal" style={{ transitionDelay: `${index * 100}ms` }} key={day.number}>
-              <div className="program-top"><span>Día {day.number}</span><b>{index === 0 ? "En vivo" : "Próximamente"}</b></div>
-              <div><p className="program-number">{day.number}</p><h3>{day.title}</h3><p>{day.copy}</p></div>
-              <a href={checkoutUrl}>Reservar mi lugar <span aria-hidden="true">→</span></a>
+              <div className="program-top"><span>Día {day.number}</span><b><i aria-hidden="true" />Resumen disponible</b></div>
+              <div className="program-body"><h3>{day.title}</h3><div className="summary-preview" aria-hidden="true">✓</div><p>{day.summary}</p></div>
+              <span className="program-summary-link" aria-disabled="true">⚽ <span>Ver resumen del día</span></span>
             </article>)}
           </div>
         </div>
