@@ -48,11 +48,11 @@ export default function Home() {
   return (
     <main>
       <a className="promo-bar" href={checkoutUrl}>
-        <span><b>Congreso EDT 2026</b> · Inscripciones abiertas</span>
+        <span><b>Congreso Virtual EDT 2026</b> · Inscripciones abiertas</span>
         <span className="promo-action">Reservá tu lugar <i aria-hidden="true">→</i></span>
       </a>
       <header className="header">
-        <a className="brand" href="#inicio" aria-label="Congreso EDT, ir al inicio">
+        <a className="brand" href="#inicio" aria-label="Congreso Virtual EDT 2026, ir al inicio">
           <Image src="/edt-logo.png" alt="Escuela EDT" width={48} height={48} priority />
           <span className="brand-rule" />
           <Image className="congreso-mark" src="/congreso-icon.png" alt="" width={36} height={36} />
@@ -64,8 +64,8 @@ export default function Home() {
       <section className="hero" id="inicio">
         <div className="container hero-grid">
           <div className="hero-copy enter">
-            <p className="eyebrow">Congreso EDT · Edición 2026</p>
-            <h1>Tres días para pensar el fútbol <em>como un cuerpo técnico profesional.</em></h1>
+            <p className="eyebrow">Escuela EDT · Tres jornadas online</p>
+            <h1>Congreso Virtual EDT 2026 <em>Tres días para pensar el fútbol profesional.</em></h1>
             <p className="lead">Charlas en vivo con referentes de la dirección técnica, la preparación física, el scouting y la gestión de clubes. Un espacio online, intensivo y aplicable.</p>
             <div className="hero-actions"><RegisterButton /><a className="button button-secondary" href="#programa">Ver programa <span aria-hidden="true">↓</span></a></div>
             <div className="countdown" aria-label="Cuenta regresiva al Congreso">

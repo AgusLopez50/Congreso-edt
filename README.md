@@ -23,6 +23,25 @@ npm run build  # Build de producción
 npm run start  # Servir el build de producción
 ```
 
+## SEO y vistas previas al compartir
+
+La configuración central está en `app/site.ts`: título, descripción, dominio canónico
+(`https://congreso.directortecnico.com`) e imagen social. `app/layout.tsx` publica
+Open Graph, Twitter Cards, iconos, directivas de indexación y datos estructurados
+de la organización, el sitio y la página. Las rutas `/robots.txt` y `/sitemap.xml`
+se generan desde los archivos de metadatos de Next.js.
+
+El original de la imagen es `public/thumbnail.png` (1200×630). Se sirve una copia
+JPEG optimizada en `public/thumbnail-social.jpg` para reducir el peso sin cambiar
+el diseño. Si se cambia el original, hay que volver a exportar esa copia:
+
+```bash
+node -e "require('sharp')('public/thumbnail.png').jpeg({ quality: 85, mozjpeg: true }).toFile('public/thumbnail-social.jpg')"
+```
+
+Las aplicaciones de mensajería y redes sociales pueden conservar vistas previas
+en caché. La web y la imagen deben ser públicas y accesibles sin autenticación.
+
 ## Stack
 
 - [Next.js](https://nextjs.org/)
