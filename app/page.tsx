@@ -49,8 +49,8 @@ function useCountdown() {
   }, [now]);
 }
 
-function RegisterButton({ className = "" }: { className?: string }) {
-  return <a className={`button button-primary ${className}`} href={checkoutUrl}>Inscribirme al Congreso <span aria-hidden="true">↗</span></a>;
+function RegisterButton({ className = "", label = "Inscribirme al Congreso" }: { className?: string; label?: string }) {
+  return <a className={`button button-primary ${className}`} href={checkoutUrl}>{label} <span aria-hidden="true">↗</span></a>;
 }
 
 export default function Home() {
@@ -84,8 +84,9 @@ export default function Home() {
           <Image className="congreso-mark" src="/congreso-icon.png" alt="" width={36} height={36} />
           <span><strong>Congreso</strong><small>por EDT</small></span>
         </a>
-        <a className="school-link" href="https://directortecnico.com">Escuela EDT <span aria-hidden="true">↗</span></a>
+        <div className="header-actions"><RegisterButton className="header-register" label="Inscribirme" /><a className="school-link" href="https://directortecnico.com">Escuela EDT <span aria-hidden="true">↗</span></a></div>
       </header>
+      <RegisterButton className="floating-register" label="Inscribirme" />
 
       <section className="hero" id="inicio">
         <div className="container hero-grid">
