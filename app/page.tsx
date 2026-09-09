@@ -7,9 +7,27 @@ const checkoutUrl = "https://directortecnico.com/checkout?productId=congreso-edt
 const congressStart = new Date("2026-11-10T18:00:00-03:00").getTime();
 
 const days = [
-  { number: "01", title: "Dirección técnica y toma de decisiones", copy: "Cómo se arma un cuerpo técnico, cómo se gestiona un plantel y qué decisiones se toman bajo presión en la semana de partido.", summary: "Primera jornada centrada en cómo se arma y gestiona un cuerpo técnico integral." },
-  { number: "02", title: "Rendimiento físico y prevención", copy: "Preparación física aplicada, carga de trabajo y prevención de lesiones en el fútbol de alto rendimiento.", summary: "Claves para planificar la carga, prevenir lesiones y sostener el rendimiento." },
-  { number: "03", title: "Scouting, datos y gestión de clubes", copy: "Cómo se profesionaliza la búsqueda de talento y la gestión institucional con análisis de datos.", summary: "Una mirada aplicada sobre scouting, datos y gestión en el fútbol profesional." },
+  {
+    number: "01", title: "Dirección técnica y toma de decisiones", copy: "Cómo se arma un cuerpo técnico, cómo se gestiona un plantel y qué decisiones se toman bajo presión en la semana de partido.", summary: "Primera jornada centrada en cómo se arma y gestiona un cuerpo técnico integral.",
+    highlights: [
+      { title: "Diego Cagna", topic: "Armado de cuerpo técnico", copy: "Planteó qué roles son indispensables en un cuerpo técnico moderno y cómo se reparten las responsabilidades entre el DT, el ayudante de campo y el preparador físico." },
+      { title: "Claudia Bravo", topic: "Gestión de plantel profesional", copy: "Compartió casos reales de manejo de grupo, comunicación con jugadores suplentes y decisiones bajo presión en semana de partido." },
+    ],
+  },
+  {
+    number: "02", title: "Rendimiento físico y prevención", copy: "Preparación física aplicada, carga de trabajo y prevención de lesiones en el fútbol de alto rendimiento.", summary: "Claves para planificar la carga, prevenir lesiones y sostener el rendimiento.",
+    highlights: [
+      { title: "Preparación física aplicada", topic: "Carga y recuperación", copy: "Criterios para ordenar el trabajo semanal, interpretar señales de fatiga y ajustar las cargas de entrenamiento." },
+      { title: "Prevención de lesiones", topic: "Decisiones interdisciplinarias", copy: "Cómo dialogan el cuerpo técnico, la preparación física y el área médica para cuidar la disponibilidad del plantel." },
+    ],
+  },
+  {
+    number: "03", title: "Scouting, datos y gestión de clubes", copy: "Cómo se profesionaliza la búsqueda de talento y la gestión institucional con análisis de datos.", summary: "Una mirada aplicada sobre scouting, datos y gestión en el fútbol profesional.",
+    highlights: [
+      { title: "Scouting y datos", topic: "Búsqueda de talento", copy: "Qué preguntas ayudan a combinar observación, contexto y métricas al momento de evaluar futbolistas." },
+      { title: "Gestión de clubes", topic: "Decisiones con información", copy: "Una síntesis de herramientas para transformar datos e informes en decisiones deportivas y de gestión." },
+    ],
+  },
 ];
 
 function useCountdown() {
@@ -37,6 +55,7 @@ function RegisterButton({ className = "" }: { className?: string }) {
 
 export default function Home() {
   const countdown = useCountdown();
+  const [selectedSummary, setSelectedSummary] = useState<(typeof days)[number] | null>(null);
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>(".reveal");
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
@@ -45,6 +64,13 @@ export default function Home() {
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
+  useEffect(() => {
+    if (!selectedSummary) return;
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setSelectedSummary(null); };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKeyDown); };
+  }, [selectedSummary]);
   return (
     <main>
       <a className="promo-bar" href={checkoutUrl}>
@@ -99,7 +125,7 @@ export default function Home() {
             {days.map((day, index) => <article className="program-card reveal" style={{ transitionDelay: `${index * 100}ms` }} key={day.number}>
               <div className="program-top"><span>Día {day.number}</span><b><i aria-hidden="true" />Resumen disponible</b></div>
               <div className="program-body"><h3>{day.title}</h3><div className="summary-preview" aria-hidden="true">✓</div><p>{day.summary}</p></div>
-              <span className="program-summary-link" aria-disabled="true">⚽ <span>Ver resumen del día</span></span>
+              <button className="program-summary-link" type="button" onClick={() => setSelectedSummary(day)}>⚽ <span>Ver resumen del día</span></button>
             </article>)}
           </div>
         </div>
@@ -108,6 +134,21 @@ export default function Home() {
       <section className="section final-section">
         <div className="container"><div className="final-card reveal"><div><p className="eyebrow">Cupos limitados</p><h2>Reservá tu lugar en el Congreso EDT.</h2><p>Todo el contenido, una sola inscripción y una experiencia pensada para quienes quieren trabajar mejor en fútbol.</p></div><RegisterButton /></div></div>
       </section>
+
+      {selectedSummary && <div className="summary-modal-backdrop" role="presentation" onMouseDown={() => setSelectedSummary(null)}>
+        <section className="summary-modal" role="dialog" aria-modal="true" aria-labelledby="summary-modal-title" onMouseDown={(event) => event.stopPropagation()}>
+          <div className="summary-modal-head"><p className="eyebrow">Resumen del día {selectedSummary.number}</p><button type="button" onClick={() => setSelectedSummary(null)} aria-label="Cerrar resumen">×</button></div>
+          <h2 id="summary-modal-title">{selectedSummary.title}</h2>
+          <p className="summary-modal-intro">{selectedSummary.summary}</p>
+          <div className="summary-video-placeholder"><b>Resumen · máx. 1 min</b><span>Video pendiente de carga</span></div>
+          <div className="summary-highlights">
+            {selectedSummary.highlights.map((highlight) => <article key={highlight.title}>
+              <div><h3>{highlight.title}</h3><span>{highlight.topic}</span></div>
+              <p>{highlight.copy}</p>
+            </article>)}
+          </div>
+        </section>
+      </div>}
 
       <footer className="footer"><div className="container footer-content"><div className="footer-brand"><Image src="/edt-logo.png" alt="Escuela EDT" width={38} height={38} /><span>Congreso EDT</span></div><p>Escuela de Dirección Técnica · Formación para profesionales del fútbol.</p><p>© {new Date().getFullYear()} Escuela EDT. Todos los derechos reservados.</p></div></footer>
     </main>
