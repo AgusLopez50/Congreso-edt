@@ -12,6 +12,45 @@ const schedule = [
   { day: "Día 3", date: "Domingo 18 de octubre", time: "9:00 a 12:30 hs", accent: "violet" },
 ];
 
+const agenda = [
+  {
+    day: "Día 1",
+    date: "Viernes 16 de octubre",
+    accent: "blue",
+    sessions: [
+      { time: "18:30 – 19:10", speaker: "Diego Fernández", topic: "La cabeza del entrenador" },
+      { time: "19:20 – 20:00", speaker: "Darío Curti", topic: "Organización de un club semiamateur" },
+      { time: "20:10 – 20:50", speaker: "Matías Passarelli", topic: "Microciclo en divisiones inferiores" },
+      { time: "21:00 – 21:40", speaker: "Guido Thompson", topic: "Organización de la semana de entrenamiento en la altura" },
+    ],
+    roundtable: "21:40 – 22:00",
+  },
+  {
+    day: "Día 2",
+    date: "Sábado 17 de octubre",
+    accent: "cyan",
+    sessions: [
+      { time: "09:00 – 09:40", speaker: "Diego Herrero", topic: "Creación de herramientas de trabajo aplicadas al fútbol" },
+      { time: "09:50 – 10:30", speaker: "Pablo Pérez", topic: "El futbolista hiperconectado: gestión de redes, foco atencional y blindaje mental" },
+      { time: "10:40 – 11:20", speaker: "Damián Lanatta", topic: "Entrevista" },
+      { time: "11:30 – 12:10", speaker: "Hamin Kwon", topic: "Ciencias aplicadas al fútbol" },
+    ],
+    roundtable: "12:10 – 12:30",
+  },
+  {
+    day: "Día 3",
+    date: "Domingo 18 de octubre",
+    accent: "violet",
+    sessions: [
+      { time: "09:00 – 09:40", speaker: "Matías Ariel Carnival", topic: "Liderazgo consciente para las nuevas generaciones" },
+      { time: "09:50 – 10:30", speaker: "Paola Yanque", topic: "Nutrición estratégica en el fútbol: cómo alimentar al jugador antes, durante y después del partido" },
+      { time: "10:40 – 11:20", speaker: "Leandro Clocchiatti", topic: "Trabajo de fuerza dentro del microciclo de las fuerzas básicas del Toluca" },
+      { time: "11:30 – 12:10", speaker: "Miguel Rondelli", topic: "Ventajas y desventajas en el juego" },
+    ],
+    roundtable: "12:10 – 12:30",
+  },
+];
+
 type SpeakerHistoryEntry = {
   club: string;
   role: string;
@@ -22,6 +61,7 @@ type SpeakerHistoryEntry = {
 type Speaker = {
   name: string;
   poster: string;
+  useFlyerCrop?: boolean;
   role: string;
   topic: string;
   copy: string;
@@ -170,6 +210,58 @@ const speakers: Speaker[] = [
     ],
     published: true,
   },
+  {
+    name: "Damián Lanatta",
+    poster: "/speaker-posters/lanatta.png",
+    useFlyerCrop: true,
+    role: "Preparador físico",
+    topic: "Entrevista",
+    copy: "Una conversación sobre experiencia, ciencia y alto rendimiento aplicados al fútbol profesional.",
+    context: "Preparador físico con recorrido en Selección Colombia y clubes de Argentina, Paraguay y el fútbol formativo.",
+    history: [
+      { club: "Selección Colombia", role: "Segundo preparador físico de la Selección Mayor", period: "2024–julio 2026" },
+      { club: "Central Córdoba", role: "Preparador físico de Primera División", logo: "/club-badges/central-cordoba.png", period: "2023" },
+      { club: "Aldosivi", role: "Preparador físico de Primera División", period: "2023" },
+      { club: "Rosario Central", role: "Preparador físico de Primera División", period: "2022" },
+      { club: "Boca Juniors", role: "Preparador físico de Primera División", period: "2020" },
+      { club: "Cerro Porteño", role: "Preparador físico de Primera División", period: "2019" },
+      { club: "San Lorenzo", role: "Preparador físico de Primera División y Reserva", logo: "/club-badges/san-lorenzo.png", period: "2018–2019" },
+      { club: "Vélez Sarsfield", role: "Preparador físico de Primera División, Reserva e inferiores", logo: "/club-badges/velez.png", period: "2008–2017" },
+    ],
+    published: true,
+  },
+  {
+    name: "Matías Ariel Carnival",
+    poster: "/speaker-posters/carnival.png",
+    useFlyerCrop: true,
+    role: "Coach ontológico profesional",
+    topic: "Liderazgo consciente para las nuevas generaciones",
+    copy: "Herramientas para liderar con conciencia, acompañar procesos y construir vínculos que mejoren el trabajo colectivo.",
+    context: "Coach ontológico, periodista y director técnico nacional con 18 años de trayectoria como jugador profesional.",
+    history: [
+      { club: "Banfield", role: "Coordinador del fútbol infantil" },
+      { club: "Huracán", role: "Coach del plantel profesional" },
+      { club: "Talleres de Remedios de Escalada", role: "Coach del plantel profesional en tres ciclos institucionales" },
+    ],
+    published: true,
+  },
+  {
+    name: "Miguel Rondelli",
+    poster: "/speaker-posters/rondelli.png",
+    useFlyerCrop: true,
+    role: "Director técnico · FBC Melgar",
+    topic: "Ventajas y desventajas en el juego",
+    copy: "Una mirada sobre identidad de trabajo, disciplina y excelencia para competir y tomar decisiones dentro del juego.",
+    context: "Entrenador con Licencia PRO Conmebol y experiencia en Perú, Ecuador, Argentina y el desarrollo metodológico de Vélez Sarsfield.",
+    history: [
+      { club: "FBC Melgar", role: "Director técnico principal", logo: "/club-badges/melgar.png", period: "2026–actualidad" },
+      { club: "Cusco FC", role: "Director técnico principal", period: "2024–marzo 2026" },
+      { club: "Emelec", role: "Director técnico principal", period: "2023" },
+      { club: "Universidad Católica", role: "Director técnico principal", period: "2021–2022" },
+      { club: "Vélez Sarsfield", role: "Dirección de metodología, fútbol infantil y reserva", logo: "/club-badges/velez.png", period: "2008–2017" },
+    ],
+    published: true,
+  },
 ];
 
 function useCountdown() {
@@ -268,11 +360,26 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section agenda-section" id="agenda">
+        <div className="container">
+          <div className="section-head reveal"><p className="eyebrow">Planificación por horario</p><h2>Una agenda para vivir cada charla.</h2><p>Doce exposiciones de 40 minutos y una mesa redonda para cerrar cada jornada.</p></div>
+          <div className="agenda-days">
+            {agenda.map((day, index) => <article className={`agenda-day ${day.accent} reveal`} style={{ transitionDelay: `${index * 90}ms` }} key={day.day}>
+              <header className="agenda-day-head"><p>{day.day}</p><h3>{day.date}</h3></header>
+              <div className="agenda-sessions">
+                {day.sessions.map((session) => <div className="agenda-session" key={`${day.day}-${session.time}`}><time>{session.time}</time><div><strong>{session.speaker}</strong><p>{session.topic}</p></div></div>)}
+              </div>
+              <footer className="agenda-roundtable"><time>{day.roundtable}</time><span>Mesa redonda de expositores</span></footer>
+            </article>)}
+          </div>
+        </div>
+      </section>
+
       <section className="section speakers-section" id="expositores">
         <div className="container">
           <div className="section-head reveal"><p className="eyebrow">Expositores anunciados</p><h2>Nuestros expositores</h2><p>Dirección técnica, rendimiento, nutrición, ciencia aplicada y salud mental. Estos son los perfiles confirmados hasta hoy.</p></div>
           <div className="speakers-grid">
-            {speakers.filter((speaker) => speaker.published).map((speaker, index) => <article className="speaker-card reveal" style={{ transitionDelay: `${(index % 3) * 85}ms` }} key={speaker.name}>
+            {speakers.filter((speaker) => speaker.published).map((speaker, index) => <article className={`speaker-card ${speaker.useFlyerCrop ? "speaker-card-flyer" : ""} reveal`} style={{ transitionDelay: `${(index % 3) * 85}ms` }} key={speaker.name}>
               <div className="speaker-card-visual">
                 <div className="speaker-portrait"><Image src={speaker.poster} alt="" fill sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 850px) calc(50vw - 33px), 350px" /></div><div className="speaker-portrait-overlay" />
                 <div className="speaker-card-head"><span>Nuestro expositor</span><b>{String(index + 1).padStart(2, "0")}</b></div>
